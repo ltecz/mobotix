@@ -19,18 +19,16 @@ Function LogMessage
 
 function Get-SnmpValues 
 {
-	LogMessage "Script started" "Info"
+	#LogMessage "Script started" "Info"
 
 	# files existence test
 	if(-not (Test-Path $IPFILE -PathType Leaf)){
 		$Msg = "Missing file $IPFILE"
-		Write-Host $Msg
 		LogMessage $Msg "Error"
 	}
 
 	if(-not (Test-Path $CONFFILE -PathType Leaf)){
 		$Msg = "Missing file $CONFFILE"
-		Write-Host $Msg
 		LogMessage $Msg "Error"
 	}
 
@@ -42,8 +40,8 @@ function Get-SnmpValues
 	catch 
 	{
 		$ErrorMessage = $_.Exception.Message
-		Write-Host "Import CSV failed! $ErrorMessage"
-		$ErrorMessage | Out-File $LogSnmp
+		$Msg = "Import CSV failed! $ErrorMessage"
+		LogMessage $Msg "Error"
 	}
 
 	#result hash table of IP's and parameter values of error state parameters
